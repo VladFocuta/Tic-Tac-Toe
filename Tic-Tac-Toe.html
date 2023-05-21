@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+  <title>Tic-Tac-Toe</title>
+</head>
+<body>
+  <div class="container">
+    <table class="costum-table">
+      <tr>
+        <td><input type="text" id="cell1" class="custom-input" onclick="printXAndO(event); xIsWinner(); oIsWinner()">
+        </td>
+        <td><input type="text" id="cell2" class="custom-input" onclick="printXAndO(event); xIsWinner(); oIsWinner()">
+        </td>
+        <td><input type="text" id="cell3" class="custom-input" onclick="printXAndO(event); xIsWinner(); oIsWinner()">
+        </td>
+      </tr>
+      <tr>
+        <td><input type="text" id="cell4" class="custom-input" onclick="printXAndO(event); xIsWinner(); oIsWinner()">
+        </td>
+        <td><input type="text" id="cell5" class="custom-input" onclick="printXAndO(event); xIsWinner(); oIsWinner()">
+        </td>
+        <td><input type="text" id="cell6" class="custom-input" onclick="printXAndO(event); xIsWinner(); oIsWinner()">
+        </td>
+      </tr>
+      <tr>
+        <td><input type="text" id="cell7" class="custom-input" onclick="printXAndO(event); xIsWinner(); oIsWinner()">
+        </td>
+        <td><input type="text" id="cell8" class="custom-input" onclick="printXAndO(event); xIsWinner(); oIsWinner()">
+        </td>
+        <td><input type="text" id="cell9" class="custom-input" onclick="printXAndO(event); xIsWinner(); oIsWinner()">
+        </td>
+      </tr>
+    </table>
+  </div>
+  <div id="winnerXMessage" class="costum-positionScoreX"></div>
+  <div id="winnerOMessage" class="costum-positionScoreO"></div>
+  <div id="isDraw" class="draw-Text"></div>
+  <div id="xHasWon" class="draw-Text"></div>
+  <div id="oHasWon" class="draw-Text"></div>
+  <div id="playersContainer"></div>
+  <button type="button" id="startButton" onclick="addPlayers()" class="costum-Buttons">Start Game</button>
+  <button type="button" id="restartButton" onclick="restartGame()" class="restart-Button">Restart Game</button>
+  <script src="index.js"></script>
+  <script src="index.css"></script>
+</body>
+</html>
