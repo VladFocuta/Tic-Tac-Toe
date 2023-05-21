@@ -1,0 +1,92 @@
+.custom-input {
+    background-color: black;
+    border: none;
+    border-radius: none;
+    color: white;
+    width: 250px;
+    height: 250px;
+    font-size: 80px;
+    text-align: center;
+    caret-color: black;
+}
+
+.costum-table {
+    background-color: lightgreen;
+    position: absolute;
+    top: 35%;
+    left: 40%;
+    transform: translate(-40%, -40%);
+    width: 20%;
+    height: 20%;
+}
+
+.costum-positionScoreX {
+    color: red;
+    font-size: 30px;
+    font-style: italic;
+    position: absolute;
+    top: 89%;
+    left: 30%;
+    transform: translate(-50%, -50%);
+}
+
+.costum-positionScoreO {
+    position: absolute;
+    top: 87%;
+    right: 41%;
+    color: blueviolet;
+    font-size: 30px;
+    font-style: italic;
+}
+
+.draw-Text {
+    position: absolute;
+    top: 46%;
+    right: 20%;
+    color: red;
+    font-size: 30px;
+    font-style: italic;
+}
+
+.costum-Buttons {
+    position: absolute;
+    bottom: 10%;
+    left: 44%;
+    transform: translateX(-50%);
+    width: 10%;
+    height: 7%;
+    color: black;
+    background-color: aquamarine;
+    font-style: italic;
+    font-size: 150%;
+}
+
+.restart-Button {
+    position: absolute;
+    bottom: 5%;
+    left: 40%;
+    background-color: red;
+    font-style: italic;
+    font-size: 150%;
+
+}
+
+.costum-firstPlayer {
+    color: red;
+    font-size: 30px;
+    font-style: italic;
+    position: absolute;
+    top: 82%;
+    left: 26%;
+    transform: translate(85%, 34%);
+}
+
+.costum-secondPlayer {
+    color: blueviolet;
+    font-size: 30px;
+    font-style: italic;
+    position: absolute;
+    top: 82%;
+    left: 53%;
+    transform: translate(85%, 34%);
+}
