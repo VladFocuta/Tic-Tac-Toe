@@ -25,28 +25,27 @@ function addPlayers() {
 }
 
 function firstPlayer() {
-    let winningMessage = document.getElementById("xHasWon");
+    let winningMessage = document.getElementById("messagesContainer");
     let playerOne = document.getElementById("Player1").innerHTML;
-    winningMessage.innerHTML = playerOne + " " + "has won!";
+    let message = document.createElement("message");
+    message.id = "winMessageX";
+    message.innerHTML = playerOne + " " + "has won!";
+    winningMessage.appendChild(message);
     setTimeout(() => {
-        winningMessage.remove();
-     }, 2000)
+        message.remove();
+    }, 2000)
 }
 
 function secondPlayer() {
-    let winningMessage = document.getElementById("oHasWon");
+    let winningMessage = document.getElementById("messagesContainer");
     let playerTwo = document.getElementById("Player2").innerHTML;
-    winningMessage.innerHTML = playerTwo + " " + "has won!";
+    let message = document.createElement("message");
+    message.id = "winMessageO";
+    message.innerHTML = playerTwo + " " + "has won!";
+    winningMessage.appendChild(message);
     setTimeout(() => {
-        winningMessage.remove();
-     }, 2000)
-}
-
-function restartGame() {
-    allowInput = true;
-    for (let i = 0; i < cells.length; i++) {
-        cells[i].value = "";
-    }
+        message.remove();
+    }, 2000)
 }
 
 function printX(event) {
@@ -70,11 +69,11 @@ function printXAndO(e) {
     }
 }
 
-let scoreBoardX = 0;
-function xIsWinner() {
-    let cells = document.querySelectorAll("table td input");
-    let score = document.getElementById("winnerXMessage");
-    let xWinner = false;
+let scoreBoardX = 0, scoreBoardO = 0;
+function theWinner() {
+    let scoreX = document.getElementById("xHasWon");
+    let scoreO = document.getElementById("oHasWon");
+    let xWinner = false, oWinner = false;
     let winningCombinations = [
         [0, 1, 2],
         [3, 4, 5],
@@ -90,65 +89,51 @@ function xIsWinner() {
         if (cells[a].value === "X" && cells[b].value === "X" && cells[c].value === "X") {
             xWinner = true;
             break;
+        } else if (cells[a].value === "O" && cells[b].value === "O" && cells[c].value === "O") {
+            oWinner = true;
+            break;
         }
     }
     if (xWinner) {
         firstPlayer();
         ++scoreBoardX;
-        score.innerHTML = "Score: " + scoreBoardX;
+        scoreX.innerHTML = "Score: " + scoreBoardX;
         document.getElementById("startButton").disabled = true;
         allowInput = false;
     } else if (isGameCompleted()) {
-        let drawMessage = document.getElementById("isDraw");
-        drawMessage.innerHTML = "The game is a Draw!";
+        let drawMessage = document.getElementById("messagesContainer");
+        let message = document.createElement("message");
+        message.id = "drawMessage";
+        message.innerHTML = "The game is a Draw!";
+        drawMessage.appendChild(message);
+        message.innerHTML = "The game is a Draw!";
         setTimeout(() => {
-            drawMessage.remove();
-         }, 1000)
-    }
-}
-
-let scoreBoardO = 0;
-function oIsWinner() {
-    let cells = document.querySelectorAll("table td input");
-    let score = document.getElementById("winnerOMessage");
-    let oWinner = false;
-    let winningCombinations = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-    ];
-    for (let combinations of winningCombinations) {
-        let [a, b, c] = combinations;
-        if (cells[a].value === "O" && cells[b].value === "O" && cells[c].value === "O") {
-            oWinner = true;
-            break;
-        }
-
-    }
-    if (oWinner) {
+            message.remove();
+        }, 1000)
+        document.getElementById("startButton").disabled = true;
+        allowInput = false;
+    } else if (oWinner) {
         secondPlayer();
         ++scoreBoardO;
-        score.innerHTML = "Score: " + scoreBoardO;
-        score.className = "costum-positionScoreO";
+        scoreO.innerHTML = "Score: " + scoreBoardO;
         document.getElementById("startButton").disabled = true;
         allowInput = false;
-    } else if (isGameCompleted()) {
-        let drawMessage = document.getElementById("isDraw");
-        drawMessage.innerHTML = "The game is a Draw!";
     }
 }
 
 function isGameCompleted() {
-    let cells = document.querySelectorAll("table td input");
     for (let cell of cells) {
         if (cell.value === "") {
             return false;
         }
     }
     return true;
+}
+
+function restartGame() {
+    isX = true;
+    allowInput = true;
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].value = cells[i].defaultValue;
+    }
 }
