@@ -24,28 +24,25 @@ function addPlayers() {
     }
 }
 
-function firstPlayer() {
+function displayWinnerMessage(player) {
     let winningMessage = document.getElementById("messagesContainer");
+    let message = document.createElement("message");
     let playerOne = document.getElementById("Player1").innerHTML;
-    let message = document.createElement("message");
-    message.id = "winMessageX";
-    message.innerHTML = playerOne + " " + "has won!";
-    winningMessage.appendChild(message);
-    setTimeout(() => {
-        message.remove();
-    }, 2000)
-}
-
-function secondPlayer() {
-    let winningMessage = document.getElementById("messagesContainer");
     let playerTwo = document.getElementById("Player2").innerHTML;
-    let message = document.createElement("message");
-    message.id = "winMessageO";
-    message.innerHTML = playerTwo + " " + "has won!";
+    if (player === "X") {
+        message.id = "winMessageX";
+        message.innerHTML = playerOne + " has won!";
+    } else if (player === "O") {
+        message.id = "winMessageO";
+        message.innerHTML = playerTwo + " has won!";
+    } else if (player === "draw") {
+        message.id = "drawMessage";
+        message.innerHTML = "The game is a Draw!";
+    }
     winningMessage.appendChild(message);
     setTimeout(() => {
         message.remove();
-    }, 2000)
+    }, 2000);
 }
 
 function printX(event) {
@@ -95,25 +92,17 @@ function theWinner() {
         }
     }
     if (xWinner) {
-        firstPlayer();
+        displayWinnerMessage("X");
         ++scoreBoardX;
         scoreX.innerHTML = "Score: " + scoreBoardX;
         document.getElementById("startButton").disabled = true;
         allowInput = false;
     } else if (isGameCompleted()) {
-        let drawMessage = document.getElementById("messagesContainer");
-        let message = document.createElement("message");
-        message.id = "drawMessage";
-        message.innerHTML = "The game is a Draw!";
-        drawMessage.appendChild(message);
-        message.innerHTML = "The game is a Draw!";
-        setTimeout(() => {
-            message.remove();
-        }, 1000)
+        displayWinnerMessage("draw");
         document.getElementById("startButton").disabled = true;
         allowInput = false;
     } else if (oWinner) {
-        secondPlayer();
+        displayWinnerMessage("O");
         ++scoreBoardO;
         scoreO.innerHTML = "Score: " + scoreBoardO;
         document.getElementById("startButton").disabled = true;
