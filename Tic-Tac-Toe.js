@@ -1,16 +1,15 @@
 let cells = document.querySelectorAll("table td input");
+let namesOfThePlayers = [];
+
+function getPlayers() {
+    for (let i = 0; i < 2; ++i) {
+        namesOfThePlayers[i] = prompt("Please enter the names of the players: ");
+    }
+}
 
 function addPlayers() {
-    let namesOfThePlayers = [];
-
-    playerOne = prompt("Enter the name of the first player: ");
-    namesOfThePlayers.push(playerOne);
-
-    playerTwo = prompt("Enter the name of the second player: ");
-    namesOfThePlayers.push(playerTwo);
-
     let playersContainer = document.getElementById("playersContainer");
-
+    getPlayers();
     for (let i = 0; i < namesOfThePlayers.length; ++i) {
         let player = document.createElement("div");
         player.id = "Player" + (i + 1);
@@ -27,14 +26,12 @@ function addPlayers() {
 function displayWinnerMessage(player) {
     let winningMessage = document.getElementById("messagesContainer");
     let message = document.createElement("message");
-    let playerOne = document.getElementById("Player1").innerHTML;
-    let playerTwo = document.getElementById("Player2").innerHTML;
     if (player === "X") {
         message.id = "winMessageX";
-        message.innerHTML = playerOne + " has won!";
+        message.innerHTML = namesOfThePlayers[0] + " has won!";
     } else if (player === "O") {
         message.id = "winMessageO";
-        message.innerHTML = playerTwo + " has won!";
+        message.innerHTML = namesOfThePlayers[1] + " has won!";
     } else if (player === "draw") {
         message.id = "drawMessage";
         message.innerHTML = "The game is a Draw!";
@@ -66,10 +63,26 @@ function printXAndO(e) {
     }
 }
 
-let scoreBoardX = 0, scoreBoardO = 0;
-function theWinner() {
+function disableFunctions() {
+    document.getElementById("startButton").disabled = true;
+    allowInput = false;
+}
+
+let scoreBoardX = 0;
+function xScore() {
     let scoreX = document.getElementById("xHasWon");
+    ++scoreBoardX;
+    scoreX.innerHTML = "Score: " + scoreBoardX;
+}
+
+let scoreBoardO = 0;
+function oScore() {
     let scoreO = document.getElementById("oHasWon");
+    ++scoreBoardO;
+    scoreO.innerHTML = "Score: " + scoreBoardO;
+}
+
+function theWinner() {
     let xWinner = false, oWinner = false;
     let winningCombinations = [
         [0, 1, 2],
@@ -92,21 +105,16 @@ function theWinner() {
         }
     }
     if (xWinner) {
+        xScore();
         displayWinnerMessage("X");
-        ++scoreBoardX;
-        scoreX.innerHTML = "Score: " + scoreBoardX;
-        document.getElementById("startButton").disabled = true;
-        allowInput = false;
+        disableFunctions();
     } else if (isGameCompleted()) {
         displayWinnerMessage("draw");
-        document.getElementById("startButton").disabled = true;
-        allowInput = false;
+        disableFunctions();
     } else if (oWinner) {
+        oScore();
         displayWinnerMessage("O");
-        ++scoreBoardO;
-        scoreO.innerHTML = "Score: " + scoreBoardO;
-        document.getElementById("startButton").disabled = true;
-        allowInput = false;
+        disableFunctions();
     }
 }
 
