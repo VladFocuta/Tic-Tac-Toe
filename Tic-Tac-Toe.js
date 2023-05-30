@@ -26,21 +26,21 @@ function addPlayers() {
 
 function displayWinnerMessage(player) {
     let message = document.createElement("message");
+    let playerName = player === "X" ? namesOfThePlayers[0] : namesOfThePlayers[1];
     if (player === "X") {
         message.id = "winMessageX";
-        message.innerHTML = namesOfThePlayers[0] + " has won!";
     } else if (player === "O") {
         message.id = "winMessageO";
-        message.innerHTML = namesOfThePlayers[1] + " has won!";
     } else if (player === "draw") {
         message.id = "drawMessage";
-        message.innerHTML = "The game is a Draw!";
     }
+    message.innerHTML = player === "draw" ? "The game is a Draw!" : playerName + " has won!";
     winningMessage.appendChild(message);
     setTimeout(() => {
         message.remove();
     }, 2000);
 }
+
 
 let currentPlayer = 0;
 function printXAndO(event) {
@@ -54,20 +54,19 @@ function disableFunctions() {
     document.getElementById("startButton").disabled = true;
 }
 
-let scoreBoardX = 0;
-function xScore() {
-    let scoreX = document.getElementById("xHasWon");
-    ++scoreBoardX;
-    scoreX.innerHTML = "Score: " + scoreBoardX;
+function updateScore(player) {
+    let scoreElement, scoreBoard;
+    if (player === "X") {
+        scoreElement = document.getElementById("xHasWon");
+        scoreBoard = scoreBoardX;
+    } else if (player === "O") {
+        scoreElement = document.getElementById("oHasWon");
+        scoreBoard = scoreBoardO;
+    }
+    scoreElement.innerHTML = "Score: " + scoreBoard;
 }
 
-let scoreBoardO = 0;
-function oScore() {
-    let scoreO = document.getElementById("oHasWon");
-    ++scoreBoardO;
-    scoreO.innerHTML = "Score: " + scoreBoardO;
-}
-
+let scoreBoardO = 0, scoreBoardX = 0;
 function theWinner() {
     let winningCombinations = [
         [0, 1, 2],
@@ -82,12 +81,14 @@ function theWinner() {
     for (let combinations of winningCombinations) {
         let [a, b, c] = combinations;
         if (cells[a].value === "X" && cells[b].value === "X" && cells[c].value === "X") {
+            ++scoreBoardX;
             displayWinnerMessage("X");
-            xScore();
+            updateScore("X");
             return;
         } else if (cells[a].value === "O" && cells[b].value === "O" && cells[c].value === "O") {
+            ++scoreBoardO;
             displayWinnerMessage("O");
-            oScore();
+            updateScore("O");
             return;
         } else if (isGameCompleted()) {
             displayWinnerMessage("draw");
