@@ -15,11 +15,7 @@ function addPlayers() {
         let player = document.createElement("div");
         player.id = "Player" + (i + 1);
         player.innerHTML = namesOfThePlayers[i];
-        if (i === 0) {
-            player.className = "costum-firstPlayer";
-        } else if (i === 1) {
-            player.className = "costum-secondPlayer";
-        }
+        player.className = i === 0 ? "costum-firstPlayer" : "costum-secondPlayer";
         playersContainer.appendChild(player);
     }
 }
@@ -41,7 +37,6 @@ function displayWinnerMessage(player) {
     }, 2000);
 }
 
-
 let currentPlayer = 0;
 function printXAndO(event) {
     if (event.target.value === "") {
@@ -55,14 +50,8 @@ function disableFunctions() {
 }
 
 function updateScore(player) {
-    let scoreElement, scoreBoard;
-    if (player === "X") {
-        scoreElement = document.getElementById("xHasWon");
-        scoreBoard = scoreBoardX;
-    } else if (player === "O") {
-        scoreElement = document.getElementById("oHasWon");
-        scoreBoard = scoreBoardO;
-    }
+    let scoreElement = document.getElementById("xHasWon");
+    let scoreBoard = player === "X" ? (scoreElement.className = "costum-positionScoreX", scoreBoardX) : (scoreElement.className = "costum-positionScoreO", scoreBoardO);
     scoreElement.innerHTML = "Score: " + scoreBoard;
 }
 
