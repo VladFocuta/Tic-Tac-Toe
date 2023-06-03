@@ -23,13 +23,7 @@ function addPlayers() {
 function displayWinnerMessage(player) {
     let message = document.createElement("message");
     let playerName = player === "X" ? namesOfThePlayers[0] : namesOfThePlayers[1];
-    if (player === "X") {
-        message.id = "winMessageX";
-    } else if (player === "O") {
-        message.id = "winMessageO";
-    } else if (player === "draw") {
-        message.id = "drawMessage";
-    }
+    message.id = "winMessage" + player;
     message.innerHTML = player === "draw" ? "The game is a Draw!" : playerName + " has won!";
     winningMessage.appendChild(message);
     setTimeout(() => {
