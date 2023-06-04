@@ -63,20 +63,23 @@ function theWinner() {
     ];
     for (let combinations of winningCombinations) {
         let [a, b, c] = combinations;
-        if (cells[a].value === "X" && cells[b].value === "X" && cells[c].value === "X") {
-            ++scoreBoardX;
-            displayWinnerMessage("X");
-            updateScore("X");
-            return;
-        } else if (cells[a].value === "O" && cells[b].value === "O" && cells[c].value === "O") {
-            ++scoreBoardO;
-            displayWinnerMessage("O");
-            updateScore("O");
-            return;
-        } else if (isGameCompleted()) {
-            displayWinnerMessage("draw");
-            return;
+        if (cells[a].value === cells[b].value && cells[b].value === cells[c].value) {
+            if (cells[a].value === "X") {
+                ++scoreBoardX;
+                displayWinnerMessage("X");
+                updateScore("X");
+                return;
+            } else if (cells[a].value === "O") {
+                ++scoreBoardO;
+                displayWinnerMessage("O");
+                updateScore("O");
+                return;
+            }
         }
+    }
+    if (isGameCompleted()) {
+        displayWinnerMessage("draw");
+        return;
     }
 }
 
