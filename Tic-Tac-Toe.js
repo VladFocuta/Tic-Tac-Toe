@@ -3,20 +3,15 @@ let winningMessage = document.getElementById("messagesContainer");
 let namesOfThePlayers = [];
 
 function getPlayers() {
-    for (let i = 0; i < 2; ++i) {
-        namesOfThePlayers[i] = prompt("Please enter the names of the players: ");
-    }
+    namesOfThePlayers = [prompt("Please enter the name of the first player: "), prompt("Please enter the name of the second player: ")];
 }
 
 function addPlayers() {
     let playersContainer = document.getElementById("playersContainer");
     getPlayers();
     for (let i = 0; i < namesOfThePlayers.length; ++i) {
-        let player = document.createElement("div");
-        player.id = "Player" + (i + 1);
-        player.innerHTML = namesOfThePlayers[i];
-        player.className = i === 0 ? "costum-firstPlayer" : "costum-secondPlayer";
-        playersContainer.appendChild(player);
+        let playerClass = i === 0 ? "costum-firstPlayer" : "costum-secondPlayer";
+        playersContainer.innerHTML += `<div id="Player${i + 1}" class="${playerClass}">${namesOfThePlayers[i]}</div>`;
     }
 }
 
@@ -61,15 +56,14 @@ function theWinner() {
         [0, 4, 8],
         [2, 4, 6]
     ];
-    for (let combinations of winningCombinations) {
-        let [a, b, c] = combinations;
-        if (cells[a].value === cells[b].value && cells[b].value === cells[c].value) {
-            if (cells[a].value === "X") {
+    for (let combination of winningCombinations) {
+        if (cells[combination[0]].value === cells[combination[1]].value && cells[combination[1]].value === cells[combination[2]].value) {
+            if (cells[combination[0]].value === "X") {
                 ++scoreBoardX;
                 displayWinnerMessage("X");
                 updateScore("X");
                 return;
-            } else if (cells[a].value === "O") {
+            } else if (cells[combination[0]].value === "O") {
                 ++scoreBoardO;
                 displayWinnerMessage("O");
                 updateScore("O");
