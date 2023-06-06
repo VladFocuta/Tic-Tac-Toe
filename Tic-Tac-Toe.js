@@ -38,14 +38,25 @@ function disableFunctions() {
     document.getElementById("startButton").disabled = true;
 }
 
+let scoreBoardO = 0, scoreBoardX = 0;
 function updateScore(player) {
     let scoreElement = document.getElementById("xHasWon");
-    let scoreBoard = player === "X" ? (scoreElement.className = "costum-positionScoreX", scoreBoardX) : (scoreElement.className = "costum-positionScoreO", scoreBoardO);
-    scoreElement.innerHTML = "Score: " + scoreBoard;
+    if (player === "X") {
+        scoreBoardX++;
+        scoreElement.className = "costum-positionScoreX";
+        scoreElement.innerHTML = "Score: " + scoreBoardX;
+    } else if (player === "O") {
+        scoreBoardO++;
+        scoreElement.className = "costum-positionScoreO";
+        scoreElement.innerHTML = "Score: " + scoreBoardO;
+    }
 }
 
-let scoreBoardO = 0, scoreBoardX = 0;
 function theWinner() {
+    if (isGameCompleted()) {
+        displayWinnerMessage("draw");
+        return;
+    }
     let winningCombinations = [
         [0, 1, 2],
         [3, 4, 5],
@@ -57,23 +68,12 @@ function theWinner() {
         [2, 4, 6]
     ];
     for (let combination of winningCombinations) {
-        if (cells[combination[0]].value === cells[combination[1]].value && cells[combination[1]].value === cells[combination[2]].value) {
-            if (cells[combination[0]].value === "X") {
-                ++scoreBoardX;
-                displayWinnerMessage("X");
-                updateScore("X");
-                return;
-            } else if (cells[combination[0]].value === "O") {
-                ++scoreBoardO;
-                displayWinnerMessage("O");
-                updateScore("O");
-                return;
-            }
+        let cellInput = cells[combination[0]].value;
+        if (cellInput && cellInput === cells[combination[1]].value && cellInput === cells[combination[2]].value) {
+            displayWinnerMessage(cellInput);
+            updateScore(cellInput);
+            return;
         }
-    }
-    if (isGameCompleted()) {
-        displayWinnerMessage("draw");
-        return;
     }
 }
 
